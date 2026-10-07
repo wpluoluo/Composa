@@ -534,7 +534,7 @@ public sealed partial class MainWindow : Window
     {
         var title = Ui.Label("Composa", size: 26, weight: FontWeight.SemiBold);
         title.HorizontalAlignment = HorizontalAlignment.Center;
-        var subtitle = Ui.Label("Create a canvas, open a project or image, or drop files here.", Palette.Secondary);
+        var subtitle = Ui.Label(Loc.T("Create a canvas, open a project or image, or drop files here."), Palette.Secondary);
         subtitle.HorizontalAlignment = HorizontalAlignment.Center;
         var buttons = Ui.Row(10, Ui.TextButton("New Canvas…", () => _ = NewCanvas(), accent: true), Ui.TextButton("Open…", () => _ = Open()));
         buttons.HorizontalAlignment = HorizontalAlignment.Center;
@@ -542,12 +542,14 @@ public sealed partial class MainWindow : Window
         var recent = settings.RecentFiles.Where(p => File.Exists(p) || Directory.Exists(p)).Take(6).ToList();
         if (recent.Count > 0)
         {
-            var heading = Ui.Label("Recent", Palette.Secondary);
+            var heading = Ui.Label(Loc.T("Recent"), Palette.Secondary);
             heading.HorizontalAlignment = HorizontalAlignment.Center;
             heading.Margin = new Thickness(0, 18, 0, 0);
             box.Children.Add(heading);
             foreach (var path in recent)
             {
+                // A recent file's name is the person's own text, so it is never translated: Ui.Label is the
+                // helper that leaves such text exactly as it is.
                 var link = new Button { Classes = { "flat" }, Content = Ui.Label(Path.GetFileName(path.TrimEnd(Path.DirectorySeparatorChar)), Palette.Accent), HorizontalAlignment = HorizontalAlignment.Center, Padding = new Thickness(8, 3) };
                 ToolTip.SetTip(link, path);
                 link.Click += (_, _) => _ = OpenPaths([path]);

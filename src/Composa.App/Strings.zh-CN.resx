@@ -319,4 +319,6 @@
   <data name="Flatten" xml:space="preserve"><value>拼合</value></data>
   <data name="Merge" xml:space="preserve"><value>合并</value></data>
   <data name="Visible" xml:space="preserve"><value>可见</value></data>
+  <data name="Create a canvas, open a project or image, or drop files here." xml:space="preserve"><value>新建画布、打开项目或图片，或将文件拖到这里。</value></data>
+  <data name="Recent" xml:space="preserve"><value>最近打开</value></data>
 </root>

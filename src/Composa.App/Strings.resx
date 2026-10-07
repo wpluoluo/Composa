@@ -149,4 +149,6 @@
   <data name="Flatten" xml:space="preserve"><value>Flatten</value></data>
   <data name="Merge" xml:space="preserve"><value>Merge</value></data>
   <data name="Visible" xml:space="preserve"><value>Visible</value></data>
+  <data name="Create a canvas, open a project or image, or drop files here." xml:space="preserve"><value>Create a canvas, open a project or image, or drop files here.</value></data>
+  <data name="Recent" xml:space="preserve"><value>Recent</value></data>
 </root>
