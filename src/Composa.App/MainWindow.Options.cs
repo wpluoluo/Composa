@@ -20,7 +20,7 @@ public sealed partial class MainWindow
         var s = session;
         var row = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 14, VerticalAlignment = VerticalAlignment.Center, Classes = { "options" } };
         void Add(params Control[] controls) => row.Children.AddRange(controls);
-        Control Title(string text) => Ui.Label(text, weight: Avalonia.Media.FontWeight.SemiBold);
+        Control Title(string text) => Ui.Label(Loc.T(text), weight: Avalonia.Media.FontWeight.SemiBold);
         // A tool that comes in a group is picked from its rail button, so the bar only names the one in use.
         string Chosen() => toolButtons[s.Tool].Current!.Name;
 
@@ -106,7 +106,7 @@ public sealed partial class MainWindow
                 Add(Title(Chosen()));
                 if (s.ShapeKind == ShapeKind.Line) Add(Ui.SliderField("Width", s.ShapeLineWidth, 1, 100, v => s.ShapeLineWidth = v));
                 else if (s.ShapeKind == ShapeKind.RoundedRectangle) Add(Ui.SliderField("Corner radius", s.ShapeCornerRadius, 0, 400, v => s.ShapeCornerRadius = v, width: 150));
-                Add(Ui.Label(s.ShapeKind == ShapeKind.Line ? "Draws in the foreground color · Shift snaps to 45°" : "Fills with the foreground color", Palette.Secondary));
+                Add(Ui.Label(Loc.T(s.ShapeKind == ShapeKind.Line ? "Draws in the foreground color · Shift snaps to 45°" : "Fills with the foreground color"), Palette.Secondary));
                 break;
             case Tool.Text:
                 Add(Title("Type"));
@@ -250,7 +250,7 @@ public sealed partial class MainWindow
         row.Children.Add(Ui.Check("Transform controls", canvas.ShowTransformControls, v => { canvas.ShowTransformControls = v; canvas.InvalidateVisual(); RememberToolSettings(); }));
         if (layer?.Pixels == null)
         {
-            row.Children.Add(Ui.Label(layer == null ? "No layer selected" : layer.IsGroup ? "Moves every layer in the folder" : "This layer has no pixels", Palette.Secondary));
+            row.Children.Add(Ui.Label(Loc.T(layer == null ? "No layer selected" : layer.IsGroup ? "Moves every layer in the folder" : "This layer has no pixels"), Palette.Secondary));
             return;
         }
         var updating = false;
@@ -261,7 +261,7 @@ public sealed partial class MainWindow
                 if (updating || s.Document.Find(layer.Id) is not { } live) return;
                 s.SetTransform(live, set(live.Transform, v));
             }, 1, format, 74);
-            row.Children.Add(Ui.Row(5, Ui.Scrub(Ui.Label(label, Palette.Secondary), box), box));
+            row.Children.Add(Ui.Row(5, Ui.Scrub(Ui.Label(Loc.T(label), Palette.Secondary), box), box));
             return box;
         }
         var x = Field("X", t => t.X, (t, v) => t with { X = v }, -100000, 100000, "0.#");

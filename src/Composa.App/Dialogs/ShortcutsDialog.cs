@@ -97,7 +97,7 @@ public static class ShortcutsDialog
             {
                 var matching = listed.Where(s => s.Group == group && (filter.Length == 0 || s.Title.Contains(filter, StringComparison.OrdinalIgnoreCase))).ToList();
                 if (matching.Count == 0) continue;
-                var heading = Ui.Label(group, weight: FontWeight.SemiBold);
+                var heading = Ui.Label(Loc.T(group), weight: FontWeight.SemiBold);
                 heading.Margin = new Thickness(0, 8, 0, 4);
                 rows.Children.Add(heading);
                 foreach (var shortcut in matching)
@@ -106,7 +106,7 @@ public static class ShortcutsDialog
                     button.Click += (_, _) => { recording = recording == shortcut ? null : shortcut; Refresh(); };
                     buttons[shortcut.Id] = button;
                     var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), Width = 560 };
-                    var title = Ui.Label(shortcut.Title);
+                    var title = Ui.Label(Loc.T(shortcut.Title));
                     grid.Children.Add(title);
                     Grid.SetColumn(button, 1);
                     grid.Children.Add(button);

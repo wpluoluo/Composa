@@ -1,0 +1,105 @@
+using System.Collections.Concurrent;
+using System.Globalization;
+using System.Reflection;
+using System.Resources;
+
+namespace Composa.App;
+
+/// <summary>
+/// The one place a user-visible English name becomes the words the person reads.
+///
+/// English is the source of truth and the identity: history step names, shortcut ids, blend mode
+/// names and every string an MCP agent sends or receives stay English. Only at the border where a
+/// string is about to be drawn does it pass through here, so switching the language cannot change
+/// what the document stores, what a rebound key is keyed by, which icon a history step picks, or
+/// what an agent must send. A language with no translation falls back to the English neutral
+/// resource, and an unknown string is returned as it came in, so a missing entry reads as English
+/// rather than as nothing.
+/// </summary>
+public static class Loc
+{
+    /// <summary>The neutral language: names are shown exactly as the code writes them.</summary>
+    public const string SystemLanguage = "auto";
+    public const string English = "en";
+
+    private static readonly ResourceManager Strings = new("Composa.App.Strings", typeof(Loc).Assembly);
+    private static readonly ConcurrentDictionary<string, string> Cache = new();
+
+    /// <summary>The languages offered, each with the name it calls itself.</summary>
+    public static readonly (string Code, string Name)[] Available =
+    [
+        (SystemLanguage, "Follow the system"),
+        (English, "English"),
+        ("zh-CN", "简体中文"),
+    ];
+
+    /// <summary>The language setting: "auto", "en", or a culture code from <see cref="Available"/>.</summary>
+    public static string Setting { get; private set; } = SystemLanguage;
+
+    /// <summary>The culture actually drawing text, resolved from the setting and the operating system.</summary>
+    public static CultureInfo Culture { get; private set; } = CultureInfo.GetCultureInfo(English);
+
+    /// <summary>Whether the drawing language is other than English, which is what tells the app to widen its layout.</summary>
+    public static bool IsLocalised => !Culture.TwoLetterISOLanguageName.Equals("en", StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>
+    /// Applies a stored language setting, resolving "auto" against the system UI culture. A host that
+    /// does not persist settings is a test or another program driving the editor rather than a person,
+    /// and it stays in English: the names in the code are what those hosts assert against.
+    /// </summary>
+    public static void Apply(string? setting)
+    {
+        Setting = string.IsNullOrWhiteSpace(setting) ? SystemLanguage : setting!;
+        var code = Setting switch
+        {
+            SystemLanguage => Settings.Persist ? CultureInfo.CurrentUICulture.Name : English,
+            English => English,
+            _ => Setting,
+        };
+        CultureInfo culture;
+        try { culture = CultureInfo.GetCultureInfo(string.IsNullOrWhiteSpace(code) ? English : code); }
+        catch (CultureNotFoundException) { culture = CultureInfo.GetCultureInfo(English); }
+        // A system language the repository ships no resource for still reads as English rather than as
+        // a half-translated interface, so the culture is only kept when its own resource set exists.
+        // tryParents stays off: falling back to the neutral set is not a translation. The set has to be
+        // asked for with createIfNotExists on, since a resource not loaded yet reports as missing.
+        if (!culture.Name.StartsWith("en", StringComparison.OrdinalIgnoreCase)
+            && Strings.GetResourceSet(culture, createIfNotExists: true, tryParents: false) == null)
+            culture = CultureInfo.GetCultureInfo(English);
+        Culture = culture;
+        Cache.Clear();
+    }
+
+    /// <summary>The words for an English name in the language being drawn; the name itself when nothing is translated.</summary>
+    public static string T(string name)
+    {
+        if (string.IsNullOrEmpty(name)) return name;
+        if (Culture.TwoLetterISOLanguageName.Equals("en", StringComparison.OrdinalIgnoreCase)) return name;
+        return Cache.GetOrAdd(name, Look);
+    }
+
+    private static string Look(string name)
+    {
+        try
+        {
+            // Exact first: a header that carries its accelerator marker is filed under that spelling.
+            var value = Strings.GetString(name, Culture);
+            if (!string.IsNullOrEmpty(value)) return value;
+            // Then the same name with Avalonia's accelerator markers taken out, so one entry serves a
+            // name whether or not the caller wrote it with a marker. "__" is a literal underscore.
+            var bare = name.Replace("__", "\u0000").Replace("_", "").Replace("\u0000", "_");
+            if (bare == name) return name;
+            value = Strings.GetString(bare, Culture);
+            return string.IsNullOrEmpty(value) ? name : value;
+        }
+        catch (MissingManifestResourceException) { return name; }
+    }
+
+    /// <summary>A translated sentence with placeholders filled, so no translation has to reassemble word order.</summary>
+    public static string Format(string key, params object?[] args)
+    {
+        var text = T(key);
+        try { return string.Format(Culture, text, args); }
+        catch (FormatException) { return text; }
+    }
+}

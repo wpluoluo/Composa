@@ -67,7 +67,7 @@ public sealed class LayersPanel : UserControl
         for (var group = 0; group < BlendModeExtensions.Groups.Length; group++)
         {
             if (group > 0) { items.Add(new ComboBoxItem { Content = Ui.Separator(false), IsEnabled = false, Padding = new Thickness(0, 4), MinHeight = 0 }); blendAt.Add(null); }
-            foreach (var mode in BlendModeExtensions.Groups[group]) { items.Add(new ComboBoxItem { Content = mode.DisplayName() }); blendAt.Add(mode); }
+            foreach (var mode in BlendModeExtensions.Groups[group]) { items.Add(new ComboBoxItem { Content = Loc.T(mode.DisplayName()) }); blendAt.Add(mode); }
         }
         blend = new ComboBox { ItemsSource = items, HorizontalAlignment = HorizontalAlignment.Stretch };
         blend.SelectionChanged += (_, _) =>
@@ -109,7 +109,7 @@ public sealed class LayersPanel : UserControl
         var adjustmentMenu = new ContextMenu();
         foreach (var kind in Enum.GetValues<AdjustmentKind>())
         {
-            var item = new MenuItem { Header = Adjustment.Create(kind).DisplayName + "…" };
+            var item = new MenuItem { Header = Loc.T(Adjustment.Create(kind).DisplayName) + "…" };
             item.Click += (_, _) => NewAdjustmentRequested?.Invoke(kind);
             adjustmentMenu.Items.Add(item);
         }
@@ -118,7 +118,7 @@ public sealed class LayersPanel : UserControl
         var effectsMenu = new ContextMenu();
         foreach (var kind in Enum.GetValues<LayerEffectKind>())
         {
-            var item = new MenuItem { Header = LayerEffects.DisplayName(kind) + "…" };
+            var item = new MenuItem { Header = Loc.T(LayerEffects.DisplayName(kind)) + "…" };
             item.Click += (_, _) => NewEffectRequested?.Invoke(kind);
             effectsMenu.Items.Add(item);
         }
@@ -347,7 +347,7 @@ public sealed class LayersPanel : UserControl
         var eye = new Button { Classes = { "flat" }, Width = 24, Height = 22, Padding = new Thickness(0), Content = Icons.Create(enabled ? Icons.Eye : Icons.EyeOff, 12, enabled ? Palette.Secondary : new SolidColorBrush(Color.Parse("#555555"))) };
         ToolTip.SetTip(eye, enabled ? "Hide " + LayerEffects.DisplayName(kind).ToLowerInvariant() : "Show " + LayerEffects.DisplayName(kind).ToLowerInvariant());
         eye.Click += (_, _) => current.ToggleEffect(layer, kind);
-        var name = Ui.Label(LayerEffects.DisplayName(kind), enabled ? Palette.Foreground : Palette.Secondary);
+        var name = Ui.Label(Loc.T(LayerEffects.DisplayName(kind)), enabled ? Palette.Foreground : Palette.Secondary);
         name.FontSize = 11.5;
         var content = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 6, Margin = new Thickness(depth * 14 + 46, 0, 0, 0), Opacity = parentVisible ? 1 : 0.45, Children = { eye, name } };
         var row = new Border

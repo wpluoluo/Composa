@@ -624,34 +624,59 @@ public sealed partial class MainWindow : Window
         {
             zoomText.Text = "";
             sizeText.Text = "";
-            hintText.Text = "Ready when you are";
+            hintText.Text = Loc.T("Ready when you are");
             return;
         }
         zoomText.Text = canvas.Zoom >= 0.1 ? $"{canvas.Zoom * 100:0.#}%" : $"{canvas.Zoom * 100:0.##}%";
         sizeText.Text = $"{session.Document.Width} × {session.Document.Height} px · {session.Document.Resolution:0.#} ppi · sRGB";
-        hintText.Text = problem ?? (saving.Count > 0 ? "Saving " + string.Join(", ", saving.Values.Select(w => Path.GetFileName(w.Path))) + "…" : note ?? Hint(session));
+        hintText.Text = problem ?? (saving.Count > 0 ? Loc.Format("Saving {0}…", string.Join(", ", saving.Values.Select(w => Path.GetFileName(w.Path)))) : note ?? Hint(session));
         hintText.Foreground = problem != null ? new SolidColorBrush(Color.Parse("#FFB454")) : Palette.Secondary;
     }
 
-    private static string Hint(EditorSession s) => s.Tool == Tool.Move ? ToolHint(s) : ToolHint(s) + " · Ctrl-drag moves the layer";
+    private static string Hint(EditorSession s) => s.Tool == Tool.Move ? ToolHint(s) : ToolHint(s) + " · " + Loc.T("Ctrl-drag moves the layer");
 
+    /// <summary>
+    /// The verb for the smear tool's current mode. Liquify is spelled out because "liquify" reads oddly
+    /// in a sentence; the others are their enum name in lower case, exactly as the hint always showed them.
+    /// </summary>
+    private static string SmearVerb(EditorSession s) => s.SmearMode switch
+    {
+        SmearMode.Liquify => Loc.T("push pixels"),
+        SmearMode.Blur => Loc.T("blur"),
+        SmearMode.Smudge => Loc.T("smudge"),
+        SmearMode.Dodge => Loc.T("dodge"),
+        _ => Loc.T("burn"),
+    };
+
+    /// <summary>
+    /// What the status bar says about the tool in hand. Each sentence is looked up on its own, so a
+    /// ternary branch translates separately and a sentence nothing translated stays English.
+    /// </summary>
     private static string ToolHint(EditorSession s) => s.Tool switch
     {
-        Tool.Move => "Drag to move · Handles resize (Shift free, Alt from center) · Outside a corner rotates · Ctrl-drag a corner distorts · Ctrl-click picks a layer · 1–0 opacity",
-        Tool.Marquee => "Drag to select · Shift add · Alt subtract · Shift+Alt intersect · Drag inside to move · Delete clears · Ctrl+D deselect",
-        Tool.Lasso => s.LassoKind == LassoKind.Freehand ? "Drag to select · Shift add · Alt subtract · Drag inside to move" : "Click corners · Click the start, double-click or Enter to close · Backspace removes a corner · Escape cancels",
-        Tool.Wand => s.WandMode == WandMode.Object ? "Click an object to select its outline · Drag a box around a small one · Tab for Wand · Shift add · Alt subtract" : "Click to select similar colors · Tab for Object · Shift add · Alt subtract",
-        Tool.Crop => "Drag to crop · Shift keeps proportions · Alt symmetric · Enter applies · Escape cancels",
-        Tool.Brush => (s.EraserMode ? "Drag to erase" : "Drag to paint · Alt-click picks a color") + " · Shift-click draws a line · [ ] size · { } hardness · 1–0 opacity",
-        Tool.SpotHealing => "Drag over blemishes to heal · [ ] size",
-        Tool.CloneStamp => "Alt-click sets the source · Drag to clone · [ ] size · 1–0 opacity",
-        Tool.Smear => "Drag to " + (s.SmearMode == SmearMode.Liquify ? "push pixels" : s.SmearMode.ToString().ToLowerInvariant()) + " · [ ] size · 1–0 strength",
-        Tool.Gradient => "Drag to draw from foreground to " + (s.GradientToTransparent ? "transparent" : "background") + " · Drag an end to adjust · Shift snaps to 45° · Enter applies · Escape cancels",
-        Tool.Shape => s.ShapeKind == ShapeKind.Line ? "Drag to draw a line on a new layer · Shift snaps to 45° · Tab for the next shape" : "Drag to draw a shape on a new layer · Shift square · Alt from center · Tab for the next shape",
-        Tool.Text => s.IsEditingText ? "Type · Drag the box's handles to resize it · Alt+arrows tracking and leading · Ctrl+Enter finishes · Escape cancels" : "Click for point text · Drag a box for paragraph text · Click text to edit it",
-        Tool.Eyedropper => "Click to pick the foreground color · Alt-click for the background",
-        Tool.Hand => "Drag to pan · Ctrl+wheel zooms",
-        _ => "Click to zoom in · Alt-click to zoom out · Drag right or left to zoom smoothly"
+        Tool.Move => Loc.T("Drag to move · Handles resize (Shift free, Alt from center) · Outside a corner rotates · Ctrl-drag a corner distorts · Ctrl-click picks a layer · 1–0 opacity"),
+        Tool.Marquee => Loc.T("Drag to select · Shift add · Alt subtract · Shift+Alt intersect · Drag inside to move · Delete clears · Ctrl+D deselect"),
+        Tool.Lasso => s.LassoKind == LassoKind.Freehand
+            ? Loc.T("Drag to select · Shift add · Alt subtract · Drag inside to move")
+            : Loc.T("Click corners · Click the start, double-click or Enter to close · Backspace removes a corner · Escape cancels"),
+        Tool.Wand => s.WandMode == WandMode.Object
+            ? Loc.T("Click an object to select its outline · Drag a box around a small one · Tab for Wand · Shift add · Alt subtract")
+            : Loc.T("Click to select similar colors · Tab for Object · Shift add · Alt subtract"),
+        Tool.Crop => Loc.T("Drag to crop · Shift keeps proportions · Alt symmetric · Enter applies · Escape cancels"),
+        Tool.Brush => (s.EraserMode ? Loc.T("Drag to erase") : Loc.T("Drag to paint · Alt-click picks a color")) + Loc.T("· Shift-click draws a line · [ ] size · { } hardness · 1–0 opacity"),
+        Tool.SpotHealing => Loc.T("Drag over blemishes to heal · [ ] size"),
+        Tool.CloneStamp => Loc.T("Alt-click sets the source · Drag to clone · [ ] size · 1–0 opacity"),
+        Tool.Smear => Loc.Format("Drag to {0} · [ ] size · 1–0 strength", SmearVerb(s)),
+        Tool.Gradient => Loc.Format("Drag to draw from foreground to {0} · Drag an end to adjust · Shift snaps to 45° · Enter applies · Escape cancels", s.GradientToTransparent ? Loc.T("transparent") : Loc.T("background")),
+        Tool.Shape => s.ShapeKind == ShapeKind.Line
+            ? Loc.T("Drag to draw a line on a new layer · Shift snaps to 45° · Tab for the next shape")
+            : Loc.T("Drag to draw a shape on a new layer · Shift square · Alt from center · Tab for the next shape"),
+        Tool.Text => s.IsEditingText
+            ? Loc.T("Type · Drag the box's handles to resize it · Alt+arrows tracking and leading · Ctrl+Enter finishes · Escape cancels")
+            : Loc.T("Click for point text · Drag a box for paragraph text · Click text to edit it"),
+        Tool.Eyedropper => Loc.T("Click to pick the foreground color · Alt-click for the background"),
+        Tool.Hand => Loc.T("Drag to pan · Ctrl+wheel zooms"),
+        _ => Loc.T("Click to zoom in · Alt-click to zoom out · Drag right or left to zoom smoothly")
     };
 
     private bool reportingFailure;

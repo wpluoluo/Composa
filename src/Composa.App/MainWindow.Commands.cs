@@ -41,7 +41,8 @@ public sealed partial class MainWindow
 
         MenuItem Top(string header, params object[] items)
         {
-            var top = new MenuItem { Header = header };
+            var top = new MenuItem { Header = Loc.T(header) };
+            localisedHeaders.Add((top, header));
             foreach (var item in items) top.Items.Add(item);
             top.SubmenuOpened += (_, _) => RefreshMenuState();
             menu.Items.Add(top);
@@ -52,8 +53,11 @@ public sealed partial class MainWindow
             var gesture = key == Key.None ? null : new KeyGesture(key, modifiers);
             var guard = needsDocument ? () => HasDocument && (enabled?.Invoke() ?? true) : enabled;
             var command = new Shortcut(id ?? name.TrimEnd('…'), name.TrimEnd('…'), "Menus", gesture, run, guard);
+            // The shortcut keeps its English name: that is what a rebound key is stored under and what the
+            // shortcuts window lists. Only the header the person reads goes through the language.
             commands.Add(command);
-            var item = new MenuItem { Header = name, InputGesture = gesture };
+            var item = new MenuItem { Header = Loc.T(name), InputGesture = gesture };
+            localisedHeaders.Add((item, name));
             item.Click += (_, _) => Execute(command);
             command.Item = item;
             menuItems.Add((item, command));
@@ -61,7 +65,8 @@ public sealed partial class MainWindow
         }
         MenuItem Sub(string header, params object[] items)
         {
-            var sub = new MenuItem { Header = header };
+            var sub = new MenuItem { Header = Loc.T(header) };
+            localisedHeaders.Add((sub, header));
             foreach (var item in items) sub.Items.Add(item);
             return sub;
         }
@@ -247,6 +252,27 @@ public sealed partial class MainWindow
         var aiControl = new MenuItem { Header = "Allow AI Control", ToggleType = MenuItemToggleType.CheckBox, IsChecked = settings.AllowAiControl };
         aiControl.Click += async (_, _) => { await SetAiControl(!AiControl); aiControl.IsChecked = settings.AllowAiControl; };
 
+        // The language the interface is drawn in. Each entry is what that language calls itself, so the
+        // list stays readable whichever language is showing. The choice is remembered and applied at once.
+        var languageMenu = new MenuItem { Header = Loc.T("Language") };
+        localisedHeaders.Add((languageMenu, "Language"));
+        foreach (var (code, name) in Loc.Available)
+        {
+            var choice = code;
+            var shown = name;
+            var item = new MenuItem { Header = Loc.T(shown), ToggleType = MenuItemToggleType.Radio, IsChecked = settings.Language == code };
+            // A language's own name needs no translation and falls back to itself; "the system default"
+            // is a phrase rather than a name, so it is the one entry a resource actually changes.
+            localisedHeaders.Add((item, shown));
+            item.Click += (_, _) =>
+            {
+                SetLanguage(choice);
+                foreach (var child in languageMenu.Items.OfType<MenuItem>()) child.IsChecked = false;
+                item.IsChecked = true;
+            };
+            languageMenu.Items.Add(item);
+        }
+
         MenuItem PanelToggle(string title)
         {
             var item = Item(title, () => dock.SetVisible(dock.Section(title), !dock.Section(title).State.Visible), needsDocument: false);
@@ -261,6 +287,8 @@ public sealed partial class MainWindow
             autoUpdates,
             Line(),
             aiControl,
+            Line(),
+            languageMenu,
             Line(),
             Item("About Composa", () => _ = Prompts.Alert(this, "About Composa",
             $"Composa {AppInfo.Version}\n\nA layer-based image editor for compositing and retouching, built with .NET, Avalonia and Skia. " +
@@ -379,10 +407,31 @@ public sealed partial class MainWindow
         foreach (var (item, isChecked) in viewToggles) item.IsChecked = session != null && isChecked(session.View);
         foreach (var (item, section) in panelToggles) item.IsChecked = dock.Section(section).State.Visible;
         if (session == null) return;
-        undoItem!.Header = session.History.CanUndo ? $"Undo {session.History.UndoName}" : "Undo";
-        redoItem!.Header = session.History.CanRedo ? $"Redo {session.History.RedoName}" : "Redo";
-        mergeItem!.Header = session.MergeTitle;
-        clipItem!.Header = session.ActiveLayer?.Clipped == true ? "Release Clipping Mask" : "Create Clipping Mask";
+        // These headers are rewritten on every open, so each goes through the language here too. The step
+        // name inside them stays English: it is what HistoryPanel.IconFor matches the icon on.
+        undoItem!.Header = session.History.CanUndo ? Loc.Format("Undo {0}", Loc.T(session.History.UndoName)) : Loc.T("Undo");
+        redoItem!.Header = session.History.CanRedo ? Loc.Format("Redo {0}", Loc.T(session.History.RedoName)) : Loc.T("Redo");
+        mergeItem!.Header = Loc.T(session.MergeTitle);
+        clipItem!.Header = Loc.T(session.ActiveLayer?.Clipped == true ? "Release Clipping Mask" : "Create Clipping Mask");
+    }
+
+    /// <summary>Every menu header with the English name behind it, so a language change can re-set the text.</summary>
+    private readonly List<(MenuItem Item, string Name)> localisedHeaders = [];
+
+    /// <summary>
+    /// Switches the language the interface is drawn in and remembers it. The menu is built once, so its
+    /// headers are re-set here from the names recorded while it was built; a control that has already
+    /// drawn its text refreshes the next time it is built, which is why lookups happen at draw time
+    /// rather than names being stored translated. The English names underneath never change, so a
+    /// document, a rebound key, a history icon and an agent's call are all untouched.
+    /// </summary>
+    private void SetLanguage(string code)
+    {
+        settings.Language = code;
+        settings.Save();
+        Loc.Apply(code);
+        foreach (var (item, name) in localisedHeaders) item.Header = Loc.T(name);
+        RefreshMenuState();
     }
 
     private void Execute(Shortcut command)

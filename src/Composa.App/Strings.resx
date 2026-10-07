@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata"><xsd:complexType><xsd:sequence><xsd:element name="value" type="xsd:string" minOccurs="0" /></xsd:sequence><xsd:attribute name="name" use="required" type="xsd:string" /><xsd:attribute name="type" type="xsd:string" /><xsd:attribute name="mimetype" type="xsd:string" /><xsd:attribute ref="xml:space" /></xsd:complexType></xsd:element>
+          <xsd:element name="assembly"><xsd:complexType><xsd:attribute name="alias" type="xsd:string" /><xsd:attribute name="name" type="xsd:string" /></xsd:complexType></xsd:element>
+          <xsd:element name="data"><xsd:complexType><xsd:sequence><xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" /><xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" /></xsd:sequence><xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" /><xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" /><xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" /><xsd:attribute ref="xml:space" /></xsd:complexType></xsd:element>
+          <xsd:element name="resheader"><xsd:complexType><xsd:sequence><xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" /></xsd:sequence><xsd:attribute name="name" type="xsd:string" use="required" /></xsd:complexType></xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Hide {0}" xml:space="preserve"><value>Hide {0}</value></data>
+  <data name="Show {0}" xml:space="preserve"><value>Show {0}</value></data>
+  <data name="{0} × {1} px" xml:space="preserve"><value>{0} × {1} px</value></data>
+  <data name="Undo {0}" xml:space="preserve"><value>Undo {0}</value></data>
+  <data name="Redo {0}" xml:space="preserve"><value>Redo {0}</value></data>
+  <data name="Undo" xml:space="preserve"><value>Undo</value></data>
+  <data name="Redo" xml:space="preserve"><value>Redo</value></data>
+  <data name="Release Clipping Mask" xml:space="preserve"><value>Release Clipping Mask</value></data>
+  <data name="Create Clipping Mask" xml:space="preserve"><value>Create Clipping Mask</value></data>
+  <data name="Click to select, double-click to edit, Alt-drag onto another layer to copy the {0}" xml:space="preserve"><value>Click to select, double-click to edit, Alt-drag onto another layer to copy the {0}</value></data>
+  <data name="Edit {0}…" xml:space="preserve"><value>Edit {0}…</value></data>
+  <data name="Ready when you are" xml:space="preserve"><value>Ready when you are</value></data>
+  <data name="Saving {0}…" xml:space="preserve"><value>Saving {0}…</value></data>
+  <data name="Ctrl-drag moves the layer" xml:space="preserve"><value>Ctrl-drag moves the layer</value></data>
+  <data name="push pixels" xml:space="preserve"><value>push pixels</value></data>
+  <data name="blur" xml:space="preserve"><value>blur</value></data>
+  <data name="smudge" xml:space="preserve"><value>smudge</value></data>
+  <data name="dodge" xml:space="preserve"><value>dodge</value></data>
+  <data name="burn" xml:space="preserve"><value>burn</value></data>
+  <data name="transparent" xml:space="preserve"><value>transparent</value></data>
+  <data name="background" xml:space="preserve"><value>background</value></data>
+  <data name="Drag to move · Handles resize (Shift free, Alt from center) · Outside a corner rotates · Ctrl-drag a corner distorts · Ctrl-click picks a layer · 1–0 opacity" xml:space="preserve"><value>Drag to move · Handles resize (Shift free, Alt from center) · Outside a corner rotates · Ctrl-drag a corner distorts · Ctrl-click picks a layer · 1–0 opacity</value></data>
+  <data name="Drag to select · Shift add · Alt subtract · Shift+Alt intersect · Drag inside to move · Delete clears · Ctrl+D deselect" xml:space="preserve"><value>Drag to select · Shift add · Alt subtract · Shift+Alt intersect · Drag inside to move · Delete clears · Ctrl+D deselect</value></data>
+  <data name="Drag to select · Shift add · Alt subtract · Drag inside to move" xml:space="preserve"><value>Drag to select · Shift add · Alt subtract · Drag inside to move</value></data>
+  <data name="Click corners · Click the start, double-click or Enter to close · Backspace removes a corner · Escape cancels" xml:space="preserve"><value>Click corners · Click the start, double-click or Enter to close · Backspace removes a corner · Escape cancels</value></data>
+  <data name="Click an object to select its outline · Drag a box around a small one · Tab for Wand · Shift add · Alt subtract" xml:space="preserve"><value>Click an object to select its outline · Drag a box around a small one · Tab for Wand · Shift add · Alt subtract</value></data>
+  <data name="Click to select similar colors · Tab for Object · Shift add · Alt subtract" xml:space="preserve"><value>Click to select similar colors · Tab for Object · Shift add · Alt subtract</value></data>
+  <data name="Drag to crop · Shift keeps proportions · Alt symmetric · Enter applies · Escape cancels" xml:space="preserve"><value>Drag to crop · Shift keeps proportions · Alt symmetric · Enter applies · Escape cancels</value></data>
+  <data name="Drag to erase" xml:space="preserve"><value>Drag to erase</value></data>
+  <data name="Drag to paint · Alt-click picks a color" xml:space="preserve"><value>Drag to paint · Alt-click picks a color</value></data>
+  <data name="· Shift-click draws a line · [ ] size · { } hardness · 1–0 opacity" xml:space="preserve"><value>· Shift-click draws a line · [ ] size · { } hardness · 1–0 opacity</value></data>
+  <data name="Drag over blemishes to heal · [ ] size" xml:space="preserve"><value>Drag over blemishes to heal · [ ] size</value></data>
+  <data name="Alt-click sets the source · Drag to clone · [ ] size · 1–0 opacity" xml:space="preserve"><value>Alt-click sets the source · Drag to clone · [ ] size · 1–0 opacity</value></data>
+  <data name="Drag to {0} · [ ] size · 1–0 strength" xml:space="preserve"><value>Drag to {0} · [ ] size · 1–0 strength</value></data>
+  <data name="Drag to draw from foreground to {0} · Drag an end to adjust · Shift snaps to 45° · Enter applies · Escape cancels" xml:space="preserve"><value>Drag to draw from foreground to {0} · Drag an end to adjust · Shift snaps to 45° · Enter applies · Escape cancels</value></data>
+  <data name="Drag to draw a line on a new layer · Shift snaps to 45° · Tab for the next shape" xml:space="preserve"><value>Drag to draw a line on a new layer · Shift snaps to 45° · Tab for the next shape</value></data>
+  <data name="Drag to draw a shape on a new layer · Shift square · Alt from center · Tab for the next shape" xml:space="preserve"><value>Drag to draw a shape on a new layer · Shift square · Alt from center · Tab for the next shape</value></data>
+  <data name="Type · Drag the box's handles to resize it · Alt+arrows tracking and leading · Ctrl+Enter finishes · Escape cancels" xml:space="preserve"><value>Type · Drag the box's handles to resize it · Alt+arrows tracking and leading · Ctrl+Enter finishes · Escape cancels</value></data>
+  <data name="Click for point text · Drag a box for paragraph text · Click text to edit it" xml:space="preserve"><value>Click for point text · Drag a box for paragraph text · Click text to edit it</value></data>
+  <data name="Click to pick the foreground color · Alt-click for the background" xml:space="preserve"><value>Click to pick the foreground color · Alt-click for the background</value></data>
+  <data name="Drag to pan · Ctrl+wheel zooms" xml:space="preserve"><value>Drag to pan · Ctrl+wheel zooms</value></data>
+  <data name="Click to zoom in · Alt-click to zoom out · Drag right or left to zoom smoothly" xml:space="preserve"><value>Click to zoom in · Alt-click to zoom out · Drag right or left to zoom smoothly</value></data>
+  <data name="Auto Select" xml:space="preserve"><value>Auto Select</value></data>
+  <data name="Transform controls" xml:space="preserve"><value>Transform controls</value></data>
+  <data name="Opacity" xml:space="preserve"><value>Opacity</value></data>
+  <data name="Strength" xml:space="preserve"><value>Strength</value></data>
+  <data name="Fit" xml:space="preserve"><value>Fit</value></data>
+  <data name="Hardness" xml:space="preserve"><value>Hardness</value></data>
+  <data name="Size" xml:space="preserve"><value>Size</value></data>
+  <data name="Radius" xml:space="preserve"><value>Radius</value></data>
+  <data name="Spacing" xml:space="preserve"><value>Spacing</value></data>
+  <data name="Flow" xml:space="preserve"><value>Flow</value></data>
+  <data name="Tolerance" xml:space="preserve"><value>Tolerance</value></data>
+  <data name="Contiguous" xml:space="preserve"><value>Contiguous</value></data>
+  <data name="Sample All Layers" xml:space="preserve"><value>Sample All Layers</value></data>
+  <data name="Aligned" xml:space="preserve"><value>Aligned</value></data>
+  <data name="Corner radius" xml:space="preserve"><value>Corner radius</value></data>
+  <data name="Detect" xml:space="preserve"><value>Detect</value></data>
+  <data name="Any subject" xml:space="preserve"><value>Any subject</value></data>
+  <data name="Person" xml:space="preserve"><value>Person</value></data>
+  <data name="Plain backdrop" xml:space="preserve"><value>Plain backdrop</value></data>
+  <data name="Linear" xml:space="preserve"><value>Linear</value></data>
+  <data name="Edge" xml:space="preserve"><value>Edge</value></data>
+  <data name="Foreground to transparent" xml:space="preserve"><value>Foreground to transparent</value></data>
+  <data name="Fills with the foreground color" xml:space="preserve"><value>Fills with the foreground color</value></data>
+  <data name="Draws in the foreground color · Shift snaps to 45°" xml:space="preserve"><value>Draws in the foreground color · Shift snaps to 45°</value></data>
+  <data name="Moves every layer in the folder" xml:space="preserve"><value>Moves every layer in the folder</value></data>
+  <data name="Drag on the canvas to choose the area to keep" xml:space="preserve"><value>Drag on the canvas to choose the area to keep</value></data>
+  <data name="No layer selected" xml:space="preserve"><value>No layer selected</value></data>
+  <data name="Nothing to trim: no edge is transparent." xml:space="preserve"><value>Nothing to trim: no edge is transparent.</value></data>
+  <data name="Aligned to" xml:space="preserve"><value>Aligned to</value></data>
+  <data name="Align" xml:space="preserve"><value>Align</value></data>
+  <data name="Change Text Style" xml:space="preserve"><value>Change Text Style</value></data>
+  <data name="Done" xml:space="preserve"><value>Done</value></data>
+  <data name="Apply" xml:space="preserve"><value>Apply</value></data>
+  <data name="Bold" xml:space="preserve"><value>Bold</value></data>
+  <data name="Italic" xml:space="preserve"><value>Italic</value></data>
+  <data name="Leading" xml:space="preserve"><value>Leading</value></data>
+  <data name="Tracking" xml:space="preserve"><value>Tracking</value></data>
+  <data name="(Multiple)" xml:space="preserve"><value>(Multiple)</value></data>
+  <data name="Ready" xml:space="preserve"><value>Ready</value></data>
+  <data name="Move" xml:space="preserve"><value>Move</value></data>
+  <data name="Move tool" xml:space="preserve"><value>Move tool</value></data>
+  <data name="Marquee" xml:space="preserve"><value>Marquee</value></data>
+  <data name="Lasso" xml:space="preserve"><value>Lasso</value></data>
+  <data name="Wand" xml:space="preserve"><value>Wand</value></data>
+  <data name="Magic tool" xml:space="preserve"><value>Magic tool</value></data>
+  <data name="Brush" xml:space="preserve"><value>Brush</value></data>
+  <data name="Brush tool" xml:space="preserve"><value>Brush tool</value></data>
+  <data name="Eraser" xml:space="preserve"><value>Eraser</value></data>
+  <data name="Clone Stamp" xml:space="preserve"><value>Clone Stamp</value></data>
+  <data name="Smear" xml:space="preserve"><value>Smear</value></data>
+  <data name="Smear tool" xml:space="preserve"><value>Smear tool</value></data>
+  <data name="Shape" xml:space="preserve"><value>Shape</value></data>
+  <data name="Shape tool" xml:space="preserve"><value>Shape tool</value></data>
+  <data name="Text" xml:space="preserve"><value>Text</value></data>
+  <data name="Eyedropper" xml:space="preserve"><value>Eyedropper</value></data>
+  <data name="Hand" xml:space="preserve"><value>Hand</value></data>
+  <data name="Zoom" xml:space="preserve"><value>Zoom</value></data>
+  <data name="Crop" xml:space="preserve"><value>Crop</value></data>
+  <data name="Spot Healing" xml:space="preserve"><value>Spot Healing</value></data>
+  <data name="Rectangular Marquee" xml:space="preserve"><value>Rectangular Marquee</value></data>
+  <data name="Elliptical Marquee" xml:space="preserve"><value>Elliptical Marquee</value></data>
+  <data name="Freehand Lasso" xml:space="preserve"><value>Freehand Lasso</value></data>
+  <data name="Polygonal Lasso" xml:space="preserve"><value>Polygonal Lasso</value></data>
+  <data name="Layers" xml:space="preserve"><value>Layers</value></data>
+  <data name="History" xml:space="preserve"><value>History</value></data>
+  <data name="New Canvas" xml:space="preserve"><value>New Canvas</value></data>
+  <data name="Background" xml:space="preserve"><value>Background</value></data>
+  <data name="Untitled" xml:space="preserve"><value>Untitled</value></data>
+  <data name="Open documents" xml:space="preserve"><value>Open documents</value></data>
+  <data name="This is the state in the file" xml:space="preserve"><value>This is the state in the file</value></data>
+  <data name="Reset" xml:space="preserve"><value>Reset</value></data>
+  <data name="None" xml:space="preserve"><value>None</value></data>
+  <data name="Press keys…" xml:space="preserve"><value>Press keys…</value></data>
+  <data name="Drag to change the value (Alt: finer)" xml:space="preserve"><value>Drag to change the value (Alt: finer)</value></data>
+  <data name="Keyboard Shortcuts" xml:space="preserve"><value>Keyboard Shortcuts</value></data>
+  <data name="Tools and Canvas" xml:space="preserve"><value>Tools and Canvas</value></data>
+  <data name="Menus" xml:space="preserve"><value>Menus</value></data>
+  <data name="Language" xml:space="preserve"><value>Language</value></data>
+  <data name="Follow the system" xml:space="preserve"><value>Follow the system</value></data>
+  <data name="English" xml:space="preserve"><value>English</value></data>
+  <data name="About Composa" xml:space="preserve"><value>About Composa</value></data>
+  <data name="Allow AI Control" xml:space="preserve"><value>Allow AI Control</value></data>
+  <data name="Check for Updates Automatically" xml:space="preserve"><value>Check for Updates Automatically</value></data>
+  <data name="Check for Updates…" xml:space="preserve"><value>Check for Updates…</value></data>
+  <data name="New Folder" xml:space="preserve"><value>New Folder</value></data>
+  <data name="Delete Layer" xml:space="preserve"><value>Delete Layer</value></data>
+  <data name="Duplicate Layer" xml:space="preserve"><value>Duplicate Layer</value></data>
+  <data name="Flatten" xml:space="preserve"><value>Flatten</value></data>
+  <data name="Merge" xml:space="preserve"><value>Merge</value></data>
+  <data name="Visible" xml:space="preserve"><value>Visible</value></data>
+</root>
