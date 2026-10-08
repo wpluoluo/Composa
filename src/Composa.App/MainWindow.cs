@@ -122,9 +122,9 @@ public sealed partial class MainWindow : Window
     {
         var abandoned = recovery!.FindAbandoned();
         if (abandoned.Count == 0) return;
-        var names = string.Join("\n", abandoned.Select(e => $"• {e.Title} (autosaved {e.SavedAt:g})"));
+        var names = string.Join("\n", abandoned.Select(e => Loc.Format("• {0} (autosaved {1})", e.Title, e.SavedAt.ToString("g"))));
         var recover = await Dialogs.Prompts.Confirm(this, "Recover Unsaved Work",
-            $"Composa did not close normally last time. These documents had unsaved changes:\n\n{names}\n\nRecover them? Choosing Cancel discards the autosaved copies.", "Recover");
+            Loc.T("Composa did not close normally last time. These documents had unsaved changes:") + "\n\n" + names + "\n\n" + Loc.T("Recover them? Choosing Cancel discards the autosaved copies."), "Recover");
         foreach (var entry in abandoned)
         {
             if (recover)
@@ -138,7 +138,7 @@ public sealed partial class MainWindow : Window
                 }
                 catch (Exception error)
                 {
-                    await Dialogs.Prompts.Alert(this, "Couldn't recover " + entry.Title, error.Message + "\n\nThe autosaved copy was kept at " + entry.ProjectPath);
+                    await Dialogs.Prompts.Alert(this, Loc.Format("Couldn't recover {0}", entry.Title), error.Message + "\n\n" + Loc.Format("The autosaved copy was kept at {0}", entry.ProjectPath));
                     continue;
                 }
             }
@@ -234,7 +234,7 @@ public sealed partial class MainWindow : Window
         tabs.Children.Clear();
         foreach (var item in sessions)
         {
-            var label = Ui.Label(item.Title + (item.IsModified ? " •" : ""), item == session ? Palette.Foreground : Palette.Secondary);
+            var label = Ui.Label(DisplayedTitle(item) + (item.IsModified ? " •" : ""), item == session ? Palette.Foreground : Palette.Secondary);
             var close = new Button { Classes = { "flat" }, Padding = new Thickness(3), Content = Icons.Create(Icons.Close, 10), VerticalAlignment = VerticalAlignment.Center };
             close.Click += (_, e) => { _ = CloseSession(item); e.Handled = true; };
             var tab = new Border
@@ -272,7 +272,7 @@ public sealed partial class MainWindow : Window
     {
         MenuItem Entry(string header, Action run, bool enabled = true)
         {
-            var entry = new MenuItem { Header = header, IsEnabled = enabled };
+            var entry = new MenuItem { Header = Loc.T(header), IsEnabled = enabled };
             entry.Click += (_, _) => run();
             return entry;
         }
@@ -492,8 +492,8 @@ public sealed partial class MainWindow : Window
         }
 
         foregroundSwatch.Cursor = backgroundSwatch.Cursor = new Cursor(StandardCursorType.Hand);
-        ToolTip.SetTip(foregroundSwatch, "Foreground color");
-        ToolTip.SetTip(backgroundSwatch, "Background color");
+        ToolTip.SetTip(foregroundSwatch, Loc.T("Foreground color"));
+        ToolTip.SetTip(backgroundSwatch, Loc.T("Background color"));
         foregroundSwatch.PointerPressed += (_, _) => _ = PickColor(foreground: true);
         backgroundSwatch.PointerPressed += (_, _) => _ = PickColor(foreground: false);
         backgroundSwatch.Margin = new Thickness(14, 14, 0, 0);
@@ -532,7 +532,7 @@ public sealed partial class MainWindow : Window
 
     private Panel BuildWelcome()
     {
-        var title = Ui.Label("Composa", size: 26, weight: FontWeight.SemiBold);
+        var title = Ui.Label(Loc.T("Composa"), size: 26, weight: FontWeight.SemiBold);
         title.HorizontalAlignment = HorizontalAlignment.Center;
         var subtitle = Ui.Label(Loc.T("Create a canvas, open a project or image, or drop files here."), Palette.Secondary);
         subtitle.HorizontalAlignment = HorizontalAlignment.Center;
@@ -559,6 +559,13 @@ public sealed partial class MainWindow : Window
         box.VerticalAlignment = VerticalAlignment.Center;
         return new Panel { Children = { box } };
     }
+
+    /// <summary>
+    /// A tab's text. A document's own name is the person's and is never translated; only the nameless
+    /// default a new canvas starts with is the application's word to say, so that one reads in the language.
+    /// </summary>
+    private static string DisplayedTitle(EditorSession item) =>
+        item.FilePath == null && item.SuggestedName == null ? Loc.T("Untitled") : item.Title;
 
     private void UpdateColors()
     {
@@ -630,7 +637,7 @@ public sealed partial class MainWindow : Window
             return;
         }
         zoomText.Text = canvas.Zoom >= 0.1 ? $"{canvas.Zoom * 100:0.#}%" : $"{canvas.Zoom * 100:0.##}%";
-        sizeText.Text = $"{session.Document.Width} × {session.Document.Height} px · {session.Document.Resolution:0.#} ppi · sRGB";
+        sizeText.Text = Loc.Format("{0} × {1} px · {2} ppi · sRGB", session.Document.Width, session.Document.Height, session.Document.Resolution.ToString("0.#"));
         hintText.Text = problem ?? (saving.Count > 0 ? Loc.Format("Saving {0}…", string.Join(", ", saving.Values.Select(w => Path.GetFileName(w.Path)))) : note ?? Hint(session));
         hintText.Foreground = problem != null ? new SolidColorBrush(Color.Parse("#FFB454")) : Palette.Secondary;
     }

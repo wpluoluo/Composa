@@ -160,11 +160,12 @@ public sealed class SliderField : Control
             Grid.SetRow(w, row); Grid.SetColumn(w, 0); Grid.SetRow(h, row); Grid.SetColumn(h, 1);
             grid.Children.Add(w); grid.Children.Add(h);
         }
-        Row(0, "Change", "Drag left or right");
-        Row(1, "Fine steps", "Hold Alt while dragging");
-        Row(2, "Exact value", "Double-click to type");
-        Row(3, $"Step by {unit}", "Arrow keys or scroll wheel");
-        if (reset != null) Row(4, "Reset", "Double-click, then Reset");
+        // The help table a scrub field shows; every word is interface text.
+        Row(0, Loc.T("Change"), Loc.T("Drag left or right"));
+        Row(1, Loc.T("Fine steps"), Loc.T("Hold Alt while dragging"));
+        Row(2, Loc.T("Exact value"), Loc.T("Double-click to type"));
+        Row(3, Loc.Format("Step by {0}", unit), Loc.T("Arrow keys or scroll wheel"));
+        if (reset != null) Row(4, Loc.T("Reset"), Loc.T("Double-click, then Reset"));
         return grid;
     }
 

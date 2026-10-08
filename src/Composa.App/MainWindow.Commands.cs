@@ -189,7 +189,7 @@ public sealed partial class MainWindow
             Item("Flip Layer Horizontal", () => session!.FlipLayers(true)),
             Item("Flip Layer Vertical", () => session!.FlipLayers(false)));
 
-        var grid = new MenuItem { Header = "Pixel Grid (800% and above)", ToggleType = MenuItemToggleType.CheckBox, IsChecked = canvas.ShowPixelGrid };
+        var grid = new MenuItem { Header = Loc.T("Pixel Grid (800% and above)"), ToggleType = MenuItemToggleType.CheckBox, IsChecked = canvas.ShowPixelGrid };
         grid.Click += (_, _) => { canvas.ShowPixelGrid = !canvas.ShowPixelGrid; grid.IsChecked = canvas.ShowPixelGrid; canvas.InvalidateVisual(); RememberToolSettings(); };
         // View options are flags on the session, so a checkmark follows the current tab.
         MenuItem ViewToggle(string name, Func<ViewOptions, bool> get, Func<ViewOptions, ViewOptions> flip, Key key = Key.None, KeyModifiers modifiers = KeyModifiers.None, string? id = null)
@@ -236,7 +236,7 @@ public sealed partial class MainWindow
         // A build from a repository leaves updates to its package manager, so there is nothing to switch on there.
         var autoUpdates = new MenuItem
         {
-            Header = "Check for Updates Automatically",
+            Header = Loc.T("Check for Updates Automatically"),
             ToggleType = MenuItemToggleType.CheckBox,
             IsChecked = settings.CheckForUpdates,
             IsEnabled = UpdateCheck.Channel == UpdateChannel.GitHub
@@ -249,7 +249,7 @@ public sealed partial class MainWindow
         };
 
         // The MCP server, through which an AI agent drives the editor. Off until switched on, and remembered.
-        var aiControl = new MenuItem { Header = "Allow AI Control", ToggleType = MenuItemToggleType.CheckBox, IsChecked = settings.AllowAiControl };
+        var aiControl = new MenuItem { Header = Loc.T("Allow AI Control"), ToggleType = MenuItemToggleType.CheckBox, IsChecked = settings.AllowAiControl };
         aiControl.Click += async (_, _) => { await SetAiControl(!AiControl); aiControl.IsChecked = settings.AllowAiControl; };
 
         // The language the interface is drawn in. Each entry is what that language calls itself, so the
@@ -528,9 +528,9 @@ public sealed partial class MainWindow
 
     private static readonly FilePickerFileType ProjectType = new("Composa project") { Patterns = ["*" + ProjectFile.Extension] };
     private static readonly string[] ImageExtensions = [.. ImageFiles.ImportExtensions, .. RawImporter.Extensions];
-    private static readonly FilePickerFileType ImageType = new("Images") { Patterns = ImageExtensions.Select(e => "*" + e).ToArray() };
-    private static readonly FilePickerFileType RawType = new("Camera RAW") { Patterns = RawImporter.Extensions.Select(e => "*" + e).ToArray() };
-    private static readonly FilePickerFileType LookupType = new("Color lookup tables") { Patterns = ["*.cube", "*.3dl"] };
+    private static FilePickerFileType ImageType => new(Loc.T("Images")) { Patterns = ImageExtensions.Select(e => "*" + e).ToArray() };
+    private static FilePickerFileType RawType => new(Loc.T("Camera RAW")) { Patterns = RawImporter.Extensions.Select(e => "*" + e).ToArray() };
+    private static FilePickerFileType LookupType => new(Loc.T("Color lookup tables")) { Patterns = ["*.cube", "*.3dl"] };
     private static readonly FilePickerFileType AnyOpenable = new("Projects and images") { Patterns = ImageExtensions.Select(e => "*" + e).Append("*" + ProjectFile.Extension).ToArray() };
 
     private async Task NewCanvas()
@@ -541,7 +541,7 @@ public sealed partial class MainWindow
 
     private async Task Open()
     {
-        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { Title = "Open", AllowMultiple = true, FileTypeFilter = [AnyOpenable, ProjectType, ImageType, RawType] });
+        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { Title = Loc.T("Open"), AllowMultiple = true, FileTypeFilter = [AnyOpenable, ProjectType, ImageType, RawType] });
         await OpenPaths(files.Select(f => f.TryGetLocalPath()).OfType<string>());
     }
 
@@ -599,7 +599,7 @@ public sealed partial class MainWindow
 
     private async Task PlaceImages()
     {
-        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { Title = "Place Images as Layers", AllowMultiple = true, FileTypeFilter = [ImageType] });
+        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { Title = Loc.T("Place Images as Layers"), AllowMultiple = true, FileTypeFilter = [ImageType] });
         await PlacePaths(files.Select(f => f.TryGetLocalPath()).OfType<string>(), null);
     }
 
@@ -704,7 +704,7 @@ public sealed partial class MainWindow
         {
             var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
             {
-                Title = "Save Project", SuggestedFileName = target.Title + ProjectFile.Extension, DefaultExtension = ProjectFile.Extension.TrimStart('.'), FileTypeChoices = [ProjectType]
+                Title = Loc.T("Save Project"), SuggestedFileName = target.Title + ProjectFile.Extension, DefaultExtension = ProjectFile.Extension.TrimStart('.'), FileTypeChoices = [ProjectType]
             });
             path = file?.TryGetLocalPath();
             if (path == null) return false;
@@ -768,8 +768,8 @@ public sealed partial class MainWindow
         var extension = format switch { ExportFormat.Jpeg => "jpg", ExportFormat.Webp => "webp", _ => "png" };
         var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Export " + extension.ToUpperInvariant(), SuggestedFileName = session.Title + "." + extension, DefaultExtension = extension,
-            FileTypeChoices = [new FilePickerFileType(extension.ToUpperInvariant() + " image") { Patterns = ["*." + extension] }]
+            Title = Loc.Format("Export {0}", extension.ToUpperInvariant()), SuggestedFileName = session.Title + "." + extension, DefaultExtension = extension,
+            FileTypeChoices = [new FilePickerFileType(Loc.Format("{0} image", extension.ToUpperInvariant())) { Patterns = ["*." + extension] }]
         });
         if (file?.TryGetLocalPath() is not { } path) return;
         try
@@ -801,8 +801,8 @@ public sealed partial class MainWindow
         lookSize = size;
         var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Export Look", SuggestedFileName = session.Title + ".cube", DefaultExtension = "cube",
-            FileTypeChoices = [new FilePickerFileType("Color lookup table") { Patterns = ["*.cube"] }]
+            Title = Loc.T("Export Look"), SuggestedFileName = session.Title + ".cube", DefaultExtension = "cube",
+            FileTypeChoices = [new FilePickerFileType(Loc.T("Color lookup table")) { Patterns = ["*.cube"] }]
         });
         if (file?.TryGetLocalPath() is not { } path) return;
         try
@@ -1120,8 +1120,8 @@ public sealed partial class MainWindow
     {
         var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Save Look", SuggestedFileName = title + ".cube", DefaultExtension = "cube",
-            FileTypeChoices = [new FilePickerFileType("Color lookup table") { Patterns = ["*.cube"] }]
+            Title = Loc.T("Save Look"), SuggestedFileName = title + ".cube", DefaultExtension = "cube",
+            FileTypeChoices = [new FilePickerFileType(Loc.T("Color lookup table")) { Patterns = ["*.cube"] }]
         });
         return file?.TryGetLocalPath();
     }
@@ -1129,7 +1129,7 @@ public sealed partial class MainWindow
     /// <summary>Asks for a .cube or .3dl for the Color Lookup dialog; null when none was chosen.</summary>
     private async Task<string?> PickLookupFile()
     {
-        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { Title = "Load Color Lookup Table", FileTypeFilter = [LookupType] });
+        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { Title = Loc.T("Load Color Lookup Table"), FileTypeFilter = [LookupType] });
         return files.Count > 0 ? files[0].TryGetLocalPath() : null;
     }
 

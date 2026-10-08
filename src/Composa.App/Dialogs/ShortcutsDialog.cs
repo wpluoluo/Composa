@@ -121,7 +121,7 @@ public static class ShortcutsDialog
         var restore = Ui.TextButton("Restore Defaults", () => { foreach (var shortcut in listed) draft[shortcut.Id] = shortcut.Default; recording = null; Refresh(); });
         var notes = new TextBlock
         {
-            Text = "Click a shortcut, then press its new key combination; Escape stops recording and Backspace clears it. Brush size and hardness ([ ] and { }), the opacity digits, Space to pan and the modifier-and-mouse gestures are fixed.",
+            Text = Loc.T("Click a shortcut, then press its new key combination; Escape stops recording and Backspace clears it. Brush size and hardness ([ ] and { }), the opacity digits, Space to pan and the modifier-and-mouse gestures are fixed."),
             Foreground = Palette.Secondary, TextWrapping = TextWrapping.Wrap, MaxWidth = 590
         };
         var body = Ui.Column(10, notes, Ui.Row(10, search, restore), scroll, problem);

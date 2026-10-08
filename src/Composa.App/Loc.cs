@@ -75,13 +75,34 @@ public static class Loc
     {
         if (string.IsNullOrEmpty(name)) return name;
         if (Culture.TwoLetterISOLanguageName.Equals("en", StringComparison.OrdinalIgnoreCase)) return name;
-        return Cache.GetOrAdd(name, Look);
+        return Cache.GetOrAdd(name, k => Look(k));
     }
 
-    private static string Look(string name)
+    /// <summary>
+    /// <see cref="T"/> for a place that shares an English word with another and needs different
+    /// words: "Light" is a Camera Raw panel and a dither color swatch. The entry named
+    /// <c>Name@Context</c> wins and <c>Name</c> is the fallback, so one resource carries both readings
+    /// and English output never changes. Its own name, rather than an overload of <see cref="T"/>,
+    /// keeps <c>Loc.T</c> usable as a method group where a label function is wanted.
+    /// </summary>
+    public static string In(string name, string context)
+    {
+        if (string.IsNullOrEmpty(name)) return name;
+        if (Culture.TwoLetterISOLanguageName.Equals("en", StringComparison.OrdinalIgnoreCase)) return name;
+        return Cache.GetOrAdd(name + "@" + context, k => Look(k, context));
+    }
+
+    private static string Look(string name, string? context = null)
     {
         try
         {
+            // A context-specific entry wins over the plain one, so a shared English word can read
+            // differently in two panels without either losing its own wording.
+            if (context != null)
+            {
+                var scoped = Strings.GetString(name + "@" + context, Culture);
+                if (!string.IsNullOrEmpty(scoped)) return scoped;
+            }
             // Exact first: a header that carries its accelerator marker is filed under that spelling.
             var value = Strings.GetString(name, Culture);
             if (!string.IsNullOrEmpty(value)) return value;

@@ -35,6 +35,15 @@ These are not oversights. Translating any of them would break something.
 So a document saved in Chinese and opened in English is the same document, and an agent keeps working
 in any interface language.
 
+## Two panels, one English word
+
+Some English word means different things in two places, and one resource key cannot carry both
+translations. `Loc.In(name, context)` looks up `name@context` first and falls back to the plain
+`name`, so both readings live in one file: Camera Raw's **Light** panel is 「亮度」 while the Dither
+dialog's **Light** swatch is 「浅色」. It is a separate method rather than an optional argument on
+`Loc.T` so that `Loc.T` stays usable as a method group, which is how the option bars pass it to
+`Ui.Combo` and `Select`.
+
 ## Where translation happens
 
 At the border between a name and a pixel, never at the border between two pieces of state:
