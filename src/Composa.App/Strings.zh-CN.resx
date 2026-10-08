@@ -228,12 +228,7 @@
   <data name="Saving {0}…" xml:space="preserve"><value>正在保存 {0}…</value></data>
   <data name="Ctrl-drag moves the layer" xml:space="preserve"><value>Ctrl 拖动移动图层</value></data>
   <data name="push pixels" xml:space="preserve"><value>推动像素</value></data>
-  <data name="blur" xml:space="preserve"><value>模糊</value></data>
-  <data name="smudge" xml:space="preserve"><value>涂抹</value></data>
-  <data name="dodge" xml:space="preserve"><value>减淡</value></data>
-  <data name="burn" xml:space="preserve"><value>加深</value></data>
-  <data name="transparent" xml:space="preserve"><value>透明</value></data>
-  <data name="background" xml:space="preserve"><value>背景色</value></data>
+  <data name="background@Gradient" xml:space="preserve"><value>背景色</value></data>
   <data name="Drag to move · Handles resize (Shift free, Alt from center) · Outside a corner rotates · Ctrl-drag a corner distorts · Ctrl-click picks a layer · 1–0 opacity" xml:space="preserve"><value>拖动以移动 · 手柄缩放（Shift 自由，Alt 从中心）· 角外旋转 · Ctrl 拖动角点扭曲 · Ctrl 单击选择图层 · 1–0 不透明度</value></data>
   <data name="Drag to select · Shift add · Alt subtract · Shift+Alt intersect · Drag inside to move · Delete clears · Ctrl+D deselect" xml:space="preserve"><value>拖动以选择 · Shift 添加 · Alt 减去 · Shift+Alt 交集 · 在选区内拖动以移动 · Delete 清除 · Ctrl+D 取消选择</value></data>
   <data name="Drag to select · Shift add · Alt subtract · Drag inside to move" xml:space="preserve"><value>拖动以选择 · Shift 添加 · Alt 减去 · 在选区内拖动以移动</value></data>
@@ -310,7 +305,6 @@
   <data name="Freehand Lasso" xml:space="preserve"><value>自由套索</value></data>
   <data name="Polygonal Lasso" xml:space="preserve"><value>多边形套索</value></data>
   <data name="New Canvas" xml:space="preserve"><value>新建画布</value></data>
-  <data name="Background" xml:space="preserve"><value>背景</value></data>
   <data name="Untitled" xml:space="preserve"><value>未标题</value></data>
   <data name="Open documents" xml:space="preserve"><value>打开的文档</value></data>
   <data name="Keyboard Shortcuts" xml:space="preserve"><value>键盘快捷键</value></data>
@@ -422,10 +416,7 @@
   <data name="Ellipse Marquee" xml:space="preserve"><value>椭圆选框</value></data>
   <data name="Foreground color" xml:space="preserve"><value>前景色</value></data>
   <data name="Background color" xml:space="preserve"><value>背景色</value></data>
-  <data name="Foreground Color" xml:space="preserve"><value>前景色</value></data>
-  <data name="Background Color" xml:space="preserve"><value>背景色</value></data>
   <data name="Smoothing" xml:space="preserve"><value>平滑</value></data>
-  <data name="Sample all layers" xml:space="preserve"><value>对所有图层取样</value></data>
   <data name="Select All" xml:space="preserve"><value>全选</value></data>
   <data name="Width" xml:space="preserve"><value>宽度</value></data>
   <data name="Type" xml:space="preserve"><value>文字</value></data>
@@ -453,7 +444,7 @@
   <data name="{0} × {1} px" xml:space="preserve"><value>{0} × {1} 像素</value></data>
   <data name="Step by {0}" xml:space="preserve"><value>步进 {0}</value></data>
   <data name="Align {0}" xml:space="preserve"><value>对齐{0}</value></data>
-  <data name="Save changes to \&quot;{0}\&quot; before closing?" xml:space="preserve"><value>要在关闭前保存对「{0}」的更改吗？</value></data>
+  <data name="Save changes to &quot;{0}&quot; before closing?" xml:space="preserve"><value>要在关闭前保存对「{0}」的更改吗？</value></data>
   <data name="Couldn't recover {0}" xml:space="preserve"><value>无法恢复 {0}</value></data>
   <data name="The autosaved copy was kept at {0}" xml:space="preserve"><value>自动保存的副本保留在 {0}</value></data>
   <data name="Composa did not close normally last time. These documents had unsaved changes:" xml:space="preserve"><value>Composa 上次未正常关闭。以下文档有未保存的更改：</value></data>
@@ -496,7 +487,6 @@
   <data name="Rename…" xml:space="preserve"><value>重命名…</value></data>
   <data name="Duplicate Layers" xml:space="preserve"><value>拷贝图层</value></data>
   <data name="Delete Selected Layers" xml:space="preserve"><value>删除所选图层</value></data>
-  <data name="New adjustment layer" xml:space="preserve"><value>新建调整图层</value></data>
   <data name="Layer effects: stroke, drop shadow, color overlay, inner shadow, outer glow, inner glow" xml:space="preserve"><value>图层样式：描边、投影、颜色叠加、内阴影、外发光、内发光</value></data>
   <data name="New layer (Ctrl+Shift+N)" xml:space="preserve"><value>新建图层 (Ctrl+Shift+N)</value></data>
   <data name="Group selected layers (Ctrl+G)" xml:space="preserve"><value>将所选图层编组 (Ctrl+G)</value></data>
@@ -523,7 +513,6 @@
   <data name="Text color" xml:space="preserve"><value>文字颜色</value></data>
   <data name="Tracking: extra space after every character, in pixels" xml:space="preserve"><value>字距：每个字符后追加的间距，以像素计</value></data>
   <data name="Leading: line height baseline to baseline, in pixels. 0 is Auto: 120% of the size" xml:space="preserve"><value>行距：基线到基线的行高，以像素计。0 为自动：字号的 120%</value></data>
-  <data name="Text Color" xml:space="preserve"><value>文字颜色</value></data>
   <data name="Select a pixel layer or a mask to draw a gradient on." xml:space="preserve"><value>请选择一个像素图层或蒙版以绘制渐变。</value></data>
   <data name="Select a layer with pixels to move." xml:space="preserve"><value>请选择一个含像素的图层以移动。</value></data>
   <data name="Radial" xml:space="preserve"><value>径向</value></data>
@@ -567,7 +556,6 @@
   <data name="Click the image to pick the color to select." xml:space="preserve"><value>单击图像以选取要选择的颜色。</value></data>
   <data name="Before / After" xml:space="preserve"><value>之前 / 之后</value></data>
   <data name="{0} color" xml:space="preserve"><value>{0}颜色</value></data>
-  <data name="{0} Color" xml:space="preserve"><value>{0} 颜色</value></data>
   <data name="Position" xml:space="preserve"><value>位置</value></data>
   <data name="A subdivision every {0} pixels." xml:space="preserve"><value>每 {0} 像素一条细分线。</value></data>
   <data name="Use gridlines every {0}-{1} pixels and {2}-{3} subdivisions, no more than the pixels between gridlines." xml:space="preserve"><value>网格线间隔请使用 {0}-{1} 像素、细分 {2}-{3} 份，且不超过网格线之间的像素数。</value></data>
@@ -902,4 +890,15 @@
   <data name="How the pixels are resampled: Automatic for most pictures, Nearest Neighbor for pixel art, Enhance to invent detail with a model while enlarging" xml:space="preserve"><value>像素重新采样方式：多数图像用「自动」，像素画用「邻近取值」，放大时用「增强」由模型补出细节</value></data>
   <data name="Click a shortcut, then press its new key combination; Escape stops recording and Backspace clears it. Brush size and hardness ([ ] and { }), the opacity digits, Space to pan and the modifier-and-mouse gestures are fixed." xml:space="preserve"><value>单击某个快捷键，再按下新的组合键；Esc 结束录制，Backspace 清除。画笔大小与硬度（[ ] 与 { }）、不透明度数字键、空格平移以及修饰键加鼠标的操作不可更改。</value></data>
   <data name="Click a layer's pixels to select it. Off, a drag moves the current layer from anywhere; Ctrl-click still picks." xml:space="preserve"><value>单击图层的像素以选择该图层。关闭时，在任意处拖动都会移动当前图层；Ctrl 单击仍可选择。</value></data>
+  <data name="Preset" xml:space="preserve"><value>预设</value></data>
+  <data name="Resolution" xml:space="preserve"><value>分辨率</value></data>
+  <data name="Resample" xml:space="preserve"><value>重新采样</value></data>
+  <data name="Document Size" xml:space="preserve"><value>文档大小</value></data>
+  <data name="Pixel Dimensions" xml:space="preserve"><value>像素尺寸</value></data>
+  <data name="Unsaved Changes" xml:space="preserve"><value>未保存的更改</value></data>
+  <data name="Create" xml:space="preserve"><value>创建</value></data>
+  <data name="Transparent" xml:space="preserve"><value>透明</value></data>
+  <data name="White" xml:space="preserve"><value>白色</value></data>
+  <data name="Background" xml:space="preserve"><value>背景</value></data>
+  <data name="Current size: {0} × {1} px" xml:space="preserve"><value>当前大小：{0} × {1} 像素</value></data>
 </root>

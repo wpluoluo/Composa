@@ -36,8 +36,7 @@
   <data name="smudge" xml:space="preserve"><value>smudge</value></data>
   <data name="dodge" xml:space="preserve"><value>dodge</value></data>
   <data name="burn" xml:space="preserve"><value>burn</value></data>
-  <data name="transparent" xml:space="preserve"><value>transparent</value></data>
-  <data name="background" xml:space="preserve"><value>background</value></data>
+  <data name="background@Gradient" xml:space="preserve"><value>background</value></data>
   <data name="Drag to move · Handles resize (Shift free, Alt from center) · Outside a corner rotates · Ctrl-drag a corner distorts · Ctrl-click picks a layer · 1–0 opacity" xml:space="preserve"><value>Drag to move · Handles resize (Shift free, Alt from center) · Outside a corner rotates · Ctrl-drag a corner distorts · Ctrl-click picks a layer · 1–0 opacity</value></data>
   <data name="Drag to select · Shift add · Alt subtract · Shift+Alt intersect · Drag inside to move · Delete clears · Ctrl+D deselect" xml:space="preserve"><value>Drag to select · Shift add · Alt subtract · Shift+Alt intersect · Drag inside to move · Delete clears · Ctrl+D deselect</value></data>
   <data name="Drag to select · Shift add · Alt subtract · Drag inside to move" xml:space="preserve"><value>Drag to select · Shift add · Alt subtract · Drag inside to move</value></data>
@@ -125,7 +124,6 @@
   <data name="Layers" xml:space="preserve"><value>Layers</value></data>
   <data name="History" xml:space="preserve"><value>History</value></data>
   <data name="New Canvas" xml:space="preserve"><value>New Canvas</value></data>
-  <data name="Background" xml:space="preserve"><value>Background</value></data>
   <data name="Untitled" xml:space="preserve"><value>Untitled</value></data>
   <data name="Open documents" xml:space="preserve"><value>Open documents</value></data>
   <data name="This is the state in the file" xml:space="preserve"><value>This is the state in the file</value></data>
@@ -258,10 +256,7 @@
   <data name="Ellipse Marquee" xml:space="preserve"><value>Ellipse Marquee</value></data>
   <data name="Foreground color" xml:space="preserve"><value>Foreground color</value></data>
   <data name="Background color" xml:space="preserve"><value>Background color</value></data>
-  <data name="Foreground Color" xml:space="preserve"><value>Foreground Color</value></data>
-  <data name="Background Color" xml:space="preserve"><value>Background Color</value></data>
   <data name="Smoothing" xml:space="preserve"><value>Smoothing</value></data>
-  <data name="Sample all layers" xml:space="preserve"><value>Sample all layers</value></data>
   <data name="Select All" xml:space="preserve"><value>Select All</value></data>
   <data name="Width" xml:space="preserve"><value>Width</value></data>
   <data name="Type" xml:space="preserve"><value>Type</value></data>
@@ -285,10 +280,6 @@
   <data name="Rounded Rectangle" xml:space="preserve"><value>Rounded Rectangle</value></data>
   <data name="Line" xml:space="preserve"><value>Line</value></data>
   <data name="Liquify" xml:space="preserve"><value>Liquify</value></data>
-  <data name="Smudge" xml:space="preserve"><value>Smudge</value></data>
-  <data name="Dodge" xml:space="preserve"><value>Dodge</value></data>
-  <data name="Burn" xml:space="preserve"><value>Burn</value></data>
-  <data name="Blur" xml:space="preserve"><value>Blur</value></data>
   <data name="Gradient" xml:space="preserve"><value>Gradient</value></data>
   <data name="Magic Wand" xml:space="preserve"><value>Magic Wand</value></data>
   <data name="Object Selection" xml:space="preserve"><value>Object Selection</value></data>
@@ -300,7 +291,7 @@
   <data name="{0} × {1} px · {2} ppi · sRGB" xml:space="preserve"><value>{0} × {1} px · {2} ppi · sRGB</value></data>
   <data name="Step by {0}" xml:space="preserve"><value>Step by {0}</value></data>
   <data name="Align {0}" xml:space="preserve"><value>Align {0}</value></data>
-  <data name="Save changes to \&quot;{0}\&quot; before closing?" xml:space="preserve"><value>Save changes to \&quot;{0}\&quot; before closing?</value></data>
+  <data name="Save changes to &quot;{0}&quot; before closing?" xml:space="preserve"><value>Save changes to \&quot;{0}\&quot; before closing?</value></data>
   <data name="Couldn't recover {0}" xml:space="preserve"><value>Couldn't recover {0}</value></data>
   <data name="The autosaved copy was kept at {0}" xml:space="preserve"><value>The autosaved copy was kept at {0}</value></data>
   <data name="Composa did not close normally last time. These documents had unsaved changes:" xml:space="preserve"><value>Composa did not close normally last time. These documents had unsaved changes:</value></data>
@@ -370,7 +361,6 @@
   <data name="Text color" xml:space="preserve"><value>Text color</value></data>
   <data name="Tracking: extra space after every character, in pixels" xml:space="preserve"><value>Tracking: extra space after every character, in pixels</value></data>
   <data name="Leading: line height baseline to baseline, in pixels. 0 is Auto: 120% of the size" xml:space="preserve"><value>Leading: line height baseline to baseline, in pixels. 0 is Auto: 120% of the size</value></data>
-  <data name="Text Color" xml:space="preserve"><value>Text Color</value></data>
   <data name="Select a pixel layer or a mask to draw a gradient on." xml:space="preserve"><value>Select a pixel layer or a mask to draw a gradient on.</value></data>
   <data name="Select a layer with pixels to move." xml:space="preserve"><value>Select a layer with pixels to move.</value></data>
   <data name="Radial" xml:space="preserve"><value>Radial</value></data>
@@ -414,7 +404,6 @@
   <data name="Click the image to pick the color to select." xml:space="preserve"><value>Click the image to pick the color to select.</value></data>
   <data name="Before / After" xml:space="preserve"><value>Before / After</value></data>
   <data name="{0} color" xml:space="preserve"><value>{0} color</value></data>
-  <data name="{0} Color" xml:space="preserve"><value>{0} Color</value></data>
   <data name="Position" xml:space="preserve"><value>Position</value></data>
   <data name="A subdivision every {0} pixels." xml:space="preserve"><value>A subdivision every {0} pixels.</value></data>
   <data name="Use gridlines every {0}-{1} pixels and {2}-{3} subdivisions, no more than the pixels between gridlines." xml:space="preserve"><value>Use gridlines every {0}-{1} pixels and {2}-{3} subdivisions, no more than the pixels between gridlines.</value></data>
@@ -799,4 +788,15 @@
   <data name="How the pixels are resampled: Automatic for most pictures, Nearest Neighbor for pixel art, Enhance to invent detail with a model while enlarging" xml:space="preserve"><value>How the pixels are resampled: Automatic for most pictures, Nearest Neighbor for pixel art, Enhance to invent detail with a model while enlarging</value></data>
   <data name="Click a shortcut, then press its new key combination; Escape stops recording and Backspace clears it. Brush size and hardness ([ ] and { }), the opacity digits, Space to pan and the modifier-and-mouse gestures are fixed." xml:space="preserve"><value>Click a shortcut, then press its new key combination; Escape stops recording and Backspace clears it. Brush size and hardness ([ ] and { }), the opacity digits, Space to pan and the modifier-and-mouse gestures are fixed.</value></data>
   <data name="Click a layer's pixels to select it. Off, a drag moves the current layer from anywhere; Ctrl-click still picks." xml:space="preserve"><value>Click a layer's pixels to select it. Off, a drag moves the current layer from anywhere; Ctrl-click still picks.</value></data>
+  <data name="Preset" xml:space="preserve"><value>Preset</value></data>
+  <data name="Resolution" xml:space="preserve"><value>Resolution</value></data>
+  <data name="Resample" xml:space="preserve"><value>Resample</value></data>
+  <data name="Document Size" xml:space="preserve"><value>Document Size</value></data>
+  <data name="Pixel Dimensions" xml:space="preserve"><value>Pixel Dimensions</value></data>
+  <data name="Unsaved Changes" xml:space="preserve"><value>Unsaved Changes</value></data>
+  <data name="Create" xml:space="preserve"><value>Create</value></data>
+  <data name="Transparent" xml:space="preserve"><value>Transparent</value></data>
+  <data name="White" xml:space="preserve"><value>White</value></data>
+  <data name="Background" xml:space="preserve"><value>Background</value></data>
+  <data name="Current size: {0} × {1} px" xml:space="preserve"><value>Current size: {0} × {1} px</value></data>
 </root>

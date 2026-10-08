@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Globalization;
 using System.Reflection;
@@ -24,6 +25,25 @@ public static class Loc
 
     private static readonly ResourceManager Strings = new("Composa.App.Strings", typeof(Loc).Assembly);
     private static readonly ConcurrentDictionary<string, string> Cache = new();
+
+    /// <summary>
+    /// Each culture's resource keys folded to one spelling per name. GenerateResource treats names
+    /// that differ only in case as duplicates and drops one of them, and the same English word does
+    /// arrive in two cases - the tool is "Blur", the smear's verb is "blur" - so a lookup that only
+    /// matched exactly would silently lose its translation for one of the two. This maps either
+    /// spelling onto whichever the resource carries.
+    /// </summary>
+    private static readonly ConcurrentDictionary<string, Dictionary<string, string>> Folded = new();
+
+    private static Dictionary<string, string> Fold(CultureInfo culture) => Folded.GetOrAdd(culture.Name, _ =>
+    {
+        var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        var set = Strings.GetResourceSet(culture, createIfNotExists: true, tryParents: true);
+        if (set == null) return map;
+        foreach (DictionaryEntry entry in set)
+            if (entry.Key is string key && key.Length > 0) map.TryAdd(key, key);
+        return map;
+    });
 
     /// <summary>The languages offered, each with the name it calls itself.</summary>
     public static readonly (string Code, string Name)[] Available =
@@ -106,12 +126,19 @@ public static class Loc
             // Exact first: a header that carries its accelerator marker is filed under that spelling.
             var value = Strings.GetString(name, Culture);
             if (!string.IsNullOrEmpty(value)) return value;
+            var map = Fold(Culture);
             // Then the same name with Avalonia's accelerator markers taken out, so one entry serves a
             // name whether or not the caller wrote it with a marker. "__" is a literal underscore.
             var bare = name.Replace("__", "\u0000").Replace("_", "").Replace("\u0000", "_");
-            if (bare == name) return name;
-            value = Strings.GetString(bare, Culture);
-            return string.IsNullOrEmpty(value) ? name : value;
+            foreach (var candidate in name.Equals(bare, StringComparison.Ordinal) ? new[] { name } : new[] { name, bare })
+            {
+                if (map.TryGetValue(candidate, out var actual) && !ReferenceEquals(actual, candidate))
+                {
+                    value = Strings.GetString(actual, Culture);
+                    if (!string.IsNullOrEmpty(value)) return value;
+                }
+            }
+            return name;
         }
         catch (MissingManifestResourceException) { return name; }
     }

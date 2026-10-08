@@ -168,7 +168,7 @@ public static class CanvasDialogs
         }
         widthBox.ValueChanged += FollowSize;
         heightBox.ValueChanged += FollowSize;
-        var background = Ui.Combo(new[] { "Transparent", "White", "Background color" }, "Transparent", s => s, s => fill = s == "White" ? 1 : s == "Transparent" ? 0 : 2, 220);
+        var background = Ui.Combo(new[] { "Transparent", "White", "Background color" }, "Transparent", Loc.T, s => fill = s == "White" ? 1 : s == "Transparent" ? 0 : 2, 220);
         var grid = Form(("Preset", preset), ("Width", Ui.Row(6, widthBox, Ui.Label(Loc.T("px"), Palette.Secondary))), ("Height", Ui.Row(6, heightBox, Ui.Label(Loc.T("px"), Palette.Secondary))), ("Background", background));
         if (!await new DialogWindow("New Canvas", grid, "Create").Ask(owner)) return null;
         return new NewCanvasResult(width, height, fill == 0 ? null : fill == 1 ? SKColors.White : backgroundColor);
@@ -308,14 +308,18 @@ public static class CanvasDialogs
         return accepted ? quality : null;
     }
 
-    /// <summary>Labelled rows. The label of a number field, or of a row that starts with one, drags the field's value.</summary>
+    /// <summary>
+    /// Labelled rows. The label of a number field, or of a row that starts with one, drags the field's
+    /// value. Every label is a word the application chose, so the translation happens here once rather
+    /// than at each call.
+    /// </summary>
     public static Grid Form(params (string Label, Control Field)[] rows)
     {
         var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("Auto,12,*") };
         for (var i = 0; i < rows.Length; i++)
         {
             grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
-            var label = Ui.Label(rows[i].Label, Palette.Secondary);
+            var label = Ui.Label(Loc.T(rows[i].Label), Palette.Secondary);
             if ((rows[i].Field as NumericUpDown ?? (rows[i].Field as Panel)?.Children.FirstOrDefault() as NumericUpDown) is { } number) Ui.Scrub(label, number);
             label.Margin = new Thickness(0, 6);
             Grid.SetRow(label, i);

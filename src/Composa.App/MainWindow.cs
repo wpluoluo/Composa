@@ -676,7 +676,7 @@ public sealed partial class MainWindow : Window
         Tool.SpotHealing => Loc.T("Drag over blemishes to heal · [ ] size"),
         Tool.CloneStamp => Loc.T("Alt-click sets the source · Drag to clone · [ ] size · 1–0 opacity"),
         Tool.Smear => Loc.Format("Drag to {0} · [ ] size · 1–0 strength", SmearVerb(s)),
-        Tool.Gradient => Loc.Format("Drag to draw from foreground to {0} · Drag an end to adjust · Shift snaps to 45° · Enter applies · Escape cancels", s.GradientToTransparent ? Loc.T("transparent") : Loc.T("background")),
+        Tool.Gradient => Loc.Format("Drag to draw from foreground to {0} · Drag an end to adjust · Shift snaps to 45° · Enter applies · Escape cancels", s.GradientToTransparent ? Loc.T("transparent") : Loc.In("background", "Gradient")),
         Tool.Shape => s.ShapeKind == ShapeKind.Line
             ? Loc.T("Drag to draw a line on a new layer · Shift snaps to 45° · Tab for the next shape")
             : Loc.T("Drag to draw a shape on a new layer · Shift square · Alt from center · Tab for the next shape"),
